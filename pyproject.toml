@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "snakemake-logger-plugin-flowo"
+version = "0.1.0"
+description = "A Snakemake logger plugin that stores workflow execution data in PostgreSQL"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    {name = "Haomiao Zhang", email = "zhanghm@iregene.com"},
+    {name = "Jingmin Zhang", email = "zhangjm@iregene.com"}
+]
+keywords = ["snakemake", "plugin", "logger", "postgresql", "workflow"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "psycopg2-binary>=2.9.9",
+    "pydantic>=2.11.5",
+    "pydantic-settings>=2.9.1",
+    "snakemake>=9.6.0",
+    "snakemake-interface-logger-plugins>=1.2.3",
+    "sqlalchemy>=2.0.41",
+]
+
+[project.entry-points."snakemake.logger"]
+flowo = "snakemake_logger_plugin_flowo:LogHandler"
+
+[project.scripts]
+flowo = "snakemake_logger_plugin_flowo.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/your-org/snakemake-logger-plugin-flowo"
+Repository = "https://github.com/your-org/snakemake-logger-plugin-flowo"
+Issues = "https://github.com/your-org/snakemake-logger-plugin-flowo/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["snakemake_logger_plugin_flowo"]
+
+[[tool.uv.index]]
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+default = true
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple/"
+name = "pypi"
