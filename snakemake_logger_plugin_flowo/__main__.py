@@ -15,7 +15,7 @@ POSTGRES_HOST=172.16.3.223
 POSTGRES_PORT=6666
 
 ### APP setting
-USER=FlowO
+FLOWO_USER=FlowO
 # FLOWO_WORKING_PATH=
 """
     with open(config_path, "w") as f:

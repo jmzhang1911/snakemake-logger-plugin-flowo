@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     POSTGRES_PORT: str | None = None
     SQL_ECHO: bool = False
 
-    USER: str | None = None
+    FLOWO_USER: str | None = None
     FLOWO_WORKING_PATH: str | None = None
 
     class Config:
