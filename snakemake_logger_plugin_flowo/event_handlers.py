@@ -4,6 +4,7 @@ from logging import LogRecord
 from typing import Any, Dict, Optional
 
 from sqlalchemy.orm import Session
+import os
 
 from . import parsers
 from .models.enums import FileType, Status
@@ -91,20 +92,24 @@ class WorkflowStartedHandler(EventHandler):
         self, record: LogRecord, session: Session, context: Dict[str, Any]
     ) -> None:
         workflow_data = parsers.WorkflowStarted.from_record(record)
-        print(context)
         logfile = context.get("logfile")
         tags = context.get("config", {}).get("tags", "")
         tags = [item.strip() for item in tags.split(",") if tags]
+
+        workdir = context.get("workdir")
+        if workdir is None or not workdir.startswith("/"):
+            workdir = os.getcwd()
+
         workflow = Workflow(
             id=workflow_data.workflow_id,
             snakefile=workflow_data.snakefile,
-            user=settings.user,
-            mount_path=settings.mount_path,
-            name=context.get("config", {}).get("project_name"),
+            user=settings.USER,
+            flowo_working_path=settings.FLOWO_WORKING_PATH,
+            name=context.get("config", {}).get("flowo_project_name"),
             tags=tags,
             logfile=logfile,
             configfiles=context.get("configfiles"),
-            directory=context.get("workdir"),
+            directory=workdir,
             config=context.get("config"),
             dryrun=context["dryrun"],
             status=Status.RUNNING,

@@ -67,7 +67,7 @@ class PostgresqlLogHandler(Handler):
             "current_workflow_id": None,
             "dryrun": self.common_settings.dryrun,
             "jobs": {},
-            "logfile": str(Path(f"flowo_log/log_{uuid.uuid4()}.log").resolve()),
+            "logfile": str(Path(f"flowo_logs/log_{uuid.uuid4()}.log").resolve()),
             **self._workflow_config,
         }
 

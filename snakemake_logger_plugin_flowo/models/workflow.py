@@ -1,16 +1,12 @@
 from .base import Base
 from .enums import Status
 
-from sqlalchemy import JSON, Enum, select, String
+from sqlalchemy import JSON, Enum, String
 from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy.orm import Mapped, mapped_column, relationship, Session
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime, timezone
 from typing import Optional, Dict, Any, TYPE_CHECKING, List
 import uuid
-from zoneinfo import ZoneInfo
-
-CHINA_TZ = ZoneInfo("Asia/Shanghai")
-
 
 if TYPE_CHECKING:
     from .rule import Rule
@@ -19,7 +15,7 @@ if TYPE_CHECKING:
 
 
 class Workflow(Base):
-    __tablename__ = "workflows"  # Using plural for consistency
+    __tablename__ = "workflows"
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
     snakefile: Mapped[Optional[str]]
     started_at: Mapped[datetime] = mapped_column(default=datetime.now(timezone.utc))
@@ -39,8 +35,7 @@ class Workflow(Base):
     configfiles: Mapped[list[str]] = mapped_column(ARRAY(String), nullable=True)
     directory: Mapped[Optional[str]] = mapped_column(nullable=True)
     config: Mapped[Optional[Dict[str, Any]]] = mapped_column(JSON, nullable=True)
-    mount_path: Mapped[Optional[str]] = mapped_column(nullable=True)
-
+    flowo_working_path: Mapped[Optional[str]] = mapped_column(nullable=True)
     run_info: Mapped[Optional[Dict[str, int]]] = mapped_column(JSON, nullable=True)
 
     rules: Mapped[list["Rule"]] = relationship(
@@ -52,8 +47,7 @@ class Workflow(Base):
     jobs: Mapped[list["Job"]] = relationship(
         "Job",
         back_populates="workflow",
-        lazy="dynamic",  # return a query object
-        # lazy="selectin",
+        lazy="dynamic",
     )
     errors: Mapped[list["Error"]] = relationship(
         "Error",

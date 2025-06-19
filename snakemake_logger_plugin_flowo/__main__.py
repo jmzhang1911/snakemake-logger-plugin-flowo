@@ -16,8 +16,7 @@ POSTGRES_PORT=6666
 
 ### APP setting
 USER=FlowO
-# MOUNT_PATH=
-# FLOWO_LOG_DIR=
+# FLOWO_WORKING_PATH=
 """
     with open(config_path, "w") as f:
         f.write(template)

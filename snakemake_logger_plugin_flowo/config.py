@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     SQL_ECHO: bool = False
 
     USER: str | None = None
-    MOUNT_PATH: str | None = None
+    FLOWO_WORKING_PATH: str | None = None
 
     class Config:
         env_file = "~/.config/flowo/.env"

@@ -786,7 +786,7 @@ requires-dist = [
     { name = "psycopg2-binary", specifier = ">=2.9.9" },
     { name = "pydantic", specifier = ">=2.11.5" },
     { name = "pydantic-settings", specifier = ">=2.9.1" },
-    { name = "snakemake", specifier = ">=9.6.0" },
+    { name = "snakemake", specifier = "==9.6.0" },
     { name = "snakemake-interface-logger-plugins", specifier = ">=1.2.3" },
     { name = "sqlalchemy", specifier = ">=2.0.41" },
 ]

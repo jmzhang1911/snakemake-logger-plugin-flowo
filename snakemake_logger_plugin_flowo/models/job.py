@@ -7,9 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
 from .enums import Status
-from zoneinfo import ZoneInfo
 
-CHINA_TZ = ZoneInfo("Asia/Shanghai")
 
 if TYPE_CHECKING:
     from .file import File
