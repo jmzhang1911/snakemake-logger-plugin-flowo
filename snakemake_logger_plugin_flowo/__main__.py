@@ -12,7 +12,7 @@ def generate_config():
 POSTGRES_USER=flowo
 POSTGRES_PASSWORD=flowo_password
 POSTGRES_DB=flowo_logs
-POSTGRES_HOST=172.16.3.223
+POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 
 ### APP setting
@@ -31,11 +31,7 @@ def main():
         action="store_true",
         help="Generate default config at ~/.config/flowo/.env",
     )
-    parser.add_argument(
-        "--health-check",
-        action="store_true",
-        help="Run the new function",
-    )
+
     args = parser.parse_args()
     if args.generate_config:
         generate_config()

@@ -36,9 +36,9 @@ def setup_logger() -> logging.Logger:
 
 
 class Settings(BaseSettings):
-    POSTGRES_USER: str = "snakemake"
-    POSTGRES_PASSWORD: str = "snakemake_password"
-    POSTGRES_DB: str = "snakemake_logs"
+    POSTGRES_USER: str = "flowo"
+    POSTGRES_PASSWORD: str = "flowo_password"
+    POSTGRES_DB: str = "flowo_logs"
     POSTGRES_HOST: str | None = None
     POSTGRES_PORT: str | None = None
     SQL_ECHO: bool = False
