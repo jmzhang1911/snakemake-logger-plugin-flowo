@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+from .config import logger
 
 
 def generate_config():
@@ -8,19 +9,19 @@ def generate_config():
     config_path = config_dir / ".env"
     template = """
 ### Postgres setting
-POSTGRES_USER=snakemake
-POSTGRES_PASSWORD=snakemake_password
-POSTGRES_DB=snakemake_logs
+POSTGRES_USER=flowo
+POSTGRES_PASSWORD=flowo_password
+POSTGRES_DB=flowo_logs
 POSTGRES_HOST=172.16.3.223
-POSTGRES_PORT=6666
+POSTGRES_PORT=5432
 
 ### APP setting
 FLOWO_USER=FlowO
-# FLOWO_WORKING_PATH=
+# FLOWO_WORKING_PATH
 """
     with open(config_path, "w") as f:
         f.write(template)
-    print(f"Default config generated at {config_path}")
+    logger.info(f"Default config generated at {config_path}")
 
 
 def main():
@@ -29,6 +30,11 @@ def main():
         "--generate-config",
         action="store_true",
         help="Generate default config at ~/.config/flowo/.env",
+    )
+    parser.add_argument(
+        "--health-check",
+        action="store_true",
+        help="Run the new function",
     )
     args = parser.parse_args()
     if args.generate_config:

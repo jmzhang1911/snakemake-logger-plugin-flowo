@@ -354,15 +354,6 @@ wheels = [
 ]
 
 [[package]]
-name = "plac"
-version = "1.4.5"
-source = { registry = "https://pypi.org/simple/" }
-sdist = { url = "https://files.pythonhosted.org/packages/23/09/26ef2d614cabdcc52a7f383d0dc7967bf46be3c9700898c594e37b710c3d/plac-1.4.5.tar.gz", hash = "sha256:5f05bf85235c017fcd76c73c8101d4ff8e96beb3dc58b9a37de49cac7de82d14", size = 38988, upload-time = "2025-04-04T14:03:25.651Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/15/36/38676114a0dbee137ec366daa86603d667a07e9a52667d5ebf5c580100ba/plac-1.4.5-py2.py3-none-any.whl", hash = "sha256:87187786b4e446688b1cf5112e18fed8a23ab3b316c25fe91266a10bd1736b16", size = 22468, upload-time = "2025-04-04T14:03:24.761Z" },
-]
-
-[[package]]
 name = "platformdirs"
 version = "4.3.8"
 source = { registry = "https://pypi.org/simple/" }
@@ -419,11 +410,11 @@ wheels = [
 
 [[package]]
 name = "pulp"
-version = "3.1.1"
+version = "3.2.1"
 source = { registry = "https://pypi.org/simple/" }
-sdist = { url = "https://files.pythonhosted.org/packages/fb/92/bf4b947ec8aac629b835b588e70664c1d0150a8369f798b6c5adb32e39ba/pulp-3.1.1.tar.gz", hash = "sha256:300a330e917c9ca9ac7fda6f5849bbf30d489c368117f197a3e3fd0bc1966d95", size = 16294046, upload-time = "2025-03-24T16:09:12.36Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2f/cd/cb1308632ad5b092ebbfe64d0cd0b9906caec6e52bff88f54ddd3d434694/pulp-3.2.1.tar.gz", hash = "sha256:fc6c02c47c06342c586b175924add753cad7638ff6149b3b43e87ac6709ac469", size = 16297436, upload-time = "2025-05-29T09:25:51.647Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f5/78/54928786de173be3210963d198e4a7d037f9bf5dd327430090bf6c52e152/pulp-3.1.1-py3-none-any.whl", hash = "sha256:ad9d46afaf78a708270a2fa9b38e56536584c048dfbd7a6dbc719abee1051261", size = 16375371, upload-time = "2025-03-24T16:09:09.833Z" },
+    { url = "https://files.pythonhosted.org/packages/84/45/2bb878df73b5545405faff0b0b30f72929222356387a41b50ca268951d5d/pulp-3.2.1-py3-none-any.whl", hash = "sha256:c6cf7fe84cef15795bc7c27e2f3c6784db5cf6ebf68e94d5a659b02415f982c5", size = 16383592, upload-time = "2025-05-29T09:25:49.262Z" },
 ]
 
 [[package]]
@@ -664,7 +655,7 @@ wheels = [
 
 [[package]]
 name = "snakemake"
-version = "9.6.0"
+version = "9.6.2"
 source = { registry = "https://pypi.org/simple/" }
 dependencies = [
     { name = "appdirs" },
@@ -697,9 +688,9 @@ dependencies = [
     { name = "wrapt" },
     { name = "yte" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/01/59/b3e9d89c09af0710fc45f51a9032d5d4f56e4442327c72a3585e39a0688d/snakemake-9.6.0.tar.gz", hash = "sha256:df7c24dd278d2420d04f15f14189427d0d4dae8ab55ca7094f53f92f1930b37c", size = 5979335, upload-time = "2025-06-16T11:01:36.573Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/cf/44/d903047585b627872b81a3276906f73194bb597ceb6db54709be7a2c25b6/snakemake-9.6.2.tar.gz", hash = "sha256:906ab7b8c8af8b6b3d9c783fcc30d3c91a4dd6865f9270b7b62a858884d727b8", size = 5979050, upload-time = "2025-06-24T08:53:21.645Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/61/1b/12100e339499b4fce8f11f7119591d49929e386dee2208ae249a9a5a558f/snakemake-9.6.0-py3-none-any.whl", hash = "sha256:766cf9cb72925f727c02927b76dbc7241752c8e82e2079b668ae19cd71071ed8", size = 1101136, upload-time = "2025-06-16T11:01:34.667Z" },
+    { url = "https://files.pythonhosted.org/packages/91/ef/528b35fd8d25d244d7b7217c4819292dad883e588ea3c7c9e33679e93836/snakemake-9.6.2-py3-none-any.whl", hash = "sha256:21110fd07bd8b2d4d788ba1b680758d3e2c6533d677409df6e88b46f0a8801b5", size = 1101381, upload-time = "2025-06-24T08:53:19.517Z" },
 ]
 
 [[package]]
@@ -717,16 +708,16 @@ wheels = [
 
 [[package]]
 name = "snakemake-interface-executor-plugins"
-version = "9.3.5"
+version = "9.3.6"
 source = { registry = "https://pypi.org/simple/" }
 dependencies = [
     { name = "argparse-dataclass" },
     { name = "snakemake-interface-common" },
     { name = "throttler" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/61/9d/ca71ec355208cb3f4b2dfb590a09f5081b17e6272cdb904c97de5ee93996/snakemake_interface_executor_plugins-9.3.5.tar.gz", hash = "sha256:483b4c6b70f92170c4d87cfe213fad4ecab58abfeaee1ec428d3403026745265", size = 16413, upload-time = "2025-03-27T08:35:09.183Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/6a/62/0bf04bc7cf11d9019040e2a0957830ae5bee48ad5ee817c260145f3d99fc/snakemake_interface_executor_plugins-9.3.6.tar.gz", hash = "sha256:9c99540fd3f0ae751440b7e0a4f82323561f89e6205b12613d409374a450b84b", size = 16415, upload-time = "2025-06-18T11:02:35.628Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/aa/37/7503fd074a2f1610f97105b45272531cd072bb1eadf8af6a6b25eef0db7b/snakemake_interface_executor_plugins-9.3.5-py3-none-any.whl", hash = "sha256:a1fcc305248169c4a83ec1c9f4e590f787dce5605ee4cf0aa8a8fb8da47aea2b", size = 22384, upload-time = "2025-03-27T08:35:07.881Z" },
+    { url = "https://files.pythonhosted.org/packages/c6/44/09cbad8402a355c840dcbc976de8493103705d3a7a27adb9910340a49f83/snakemake_interface_executor_plugins-9.3.6-py3-none-any.whl", hash = "sha256:5f9d10878c877f9b82cc7ea573d057b030676f5ead553de03a36e6648bada220", size = 22369, upload-time = "2025-06-18T11:02:34.421Z" },
 ]
 
 [[package]]
@@ -786,7 +777,7 @@ requires-dist = [
     { name = "psycopg2-binary", specifier = ">=2.9.9" },
     { name = "pydantic", specifier = ">=2.11.5" },
     { name = "pydantic-settings", specifier = ">=2.9.1" },
-    { name = "snakemake", specifier = "==9.6.0" },
+    { name = "snakemake", specifier = ">=9.6.2" },
     { name = "snakemake-interface-logger-plugins", specifier = ">=1.2.3" },
     { name = "sqlalchemy", specifier = ">=2.0.41" },
 ]
@@ -870,11 +861,11 @@ wheels = [
 
 [[package]]
 name = "urllib3"
-version = "2.4.0"
+version = "2.5.0"
 source = { registry = "https://pypi.org/simple/" }
-sdist = { url = "https://files.pythonhosted.org/packages/8a/78/16493d9c386d8e60e442a35feac5e00f0913c0f4b7c217c11e8ec2ff53e0/urllib3-2.4.0.tar.gz", hash = "sha256:414bc6535b787febd7567804cc015fee39daab8ad86268f1310a9250697de466", size = 390672, upload-time = "2025-04-10T15:23:39.232Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/15/22/9ee70a2574a4f4599c47dd506532914ce044817c7752a79b6a51286319bc/urllib3-2.5.0.tar.gz", hash = "sha256:3fc47733c7e419d4bc3f6b3dc2b4f890bb743906a30d56ba4a5bfa4bbff92760", size = 393185, upload-time = "2025-06-18T14:07:41.644Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6b/11/cc635220681e93a0183390e26485430ca2c7b5f9d33b15c74c2861cb8091/urllib3-2.4.0-py3-none-any.whl", hash = "sha256:4e16665048960a0900c702d4a66415956a584919c03361cac9f1df5c5dd7e813", size = 128680, upload-time = "2025-04-10T15:23:37.377Z" },
+    { url = "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl", hash = "sha256:e6b01673c0fa6a13e374b50871808eb3bf7046c4b125b216f6bf1cc604cff0dc", size = 129795, upload-time = "2025-06-18T14:07:40.39Z" },
 ]
 
 [[package]]
@@ -921,14 +912,14 @@ wheels = [
 
 [[package]]
 name = "yte"
-version = "1.8.1"
+version = "1.9.0"
 source = { registry = "https://pypi.org/simple/" }
 dependencies = [
+    { name = "argparse-dataclass" },
     { name = "dpath" },
-    { name = "plac" },
     { name = "pyyaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f3/19/a56a000125ade3e9b4d25122f1725c8fdaf24cc907eb296b80f7991d81f9/yte-1.8.1.tar.gz", hash = "sha256:6eefbdceae56e156ba9881ecb63f3c9217cfe5d5cc6f85fdb061c266a8eff112", size = 7105, upload-time = "2025-06-11T10:15:36.496Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d2/ac/eb7ef47a0d307737812f9d8734d288a429849d430049049370814ab814d9/yte-1.9.0.tar.gz", hash = "sha256:d259548aa46c5d5ff318f3ecb1732918d1ac3c6708798767ce3823192ce1ba21", size = 7404, upload-time = "2025-06-25T15:18:07.972Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/37/85/6bab533b2eaa21714f312cb9eb758c869dfbed06bc13a4f3bfc3688197d6/yte-1.8.1-py3-none-any.whl", hash = "sha256:4fa0ddfff047984bda0bc521d85cba32a8a7ca4c4cdb16938b6911c049485733", size = 9021, upload-time = "2025-06-11T10:15:35.519Z" },
+    { url = "https://files.pythonhosted.org/packages/fd/65/a961f5b88f12dc14e86715403dbeb39a69798d26ce5ddffc596cdeb4e2e5/yte-1.9.0-py3-none-any.whl", hash = "sha256:f7376ed048e7b1e96beb570bcb3b675b2bd54b5fb38890f663e95b6d9973a221", size = 9651, upload-time = "2025-06-25T15:18:07.209Z" },
 ]

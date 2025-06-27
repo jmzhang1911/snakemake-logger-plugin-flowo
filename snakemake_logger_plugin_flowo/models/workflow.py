@@ -5,7 +5,7 @@ from sqlalchemy import JSON, Enum, String
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime, timezone
-from typing import Optional, Dict, Any, TYPE_CHECKING, List
+from typing import Optional, Dict, Any, TYPE_CHECKING
 import uuid
 
 if TYPE_CHECKING:

@@ -12,12 +12,21 @@ from snakemake.logging import DefaultFormatter, DefaultFilter
 
 __version__ = "0.1.0"
 
+from .config import logger
+
 
 class LogHandler(LogHandlerBase, PostgresqlLogHandler):
     """Main LogHandler class for the PostgreSQL plugin."""
 
     def __post_init__(self) -> None:
         PostgresqlLogHandler.__init__(self, self.common_settings)
+        if not self.db_connected():
+            self.emit = lambda _: None
+            self.close = lambda: None
+        else:
+            logger.info("Plugin is successfully initialized and running. Monitoring ...")
+        self.flowo_path_valid()
+
         self.log_file_path = Path(self.context.get("logfile"))
         if not self.log_file_path.parent.exists():
             self.log_file_path.parent.mkdir(parents=True, exist_ok=True)

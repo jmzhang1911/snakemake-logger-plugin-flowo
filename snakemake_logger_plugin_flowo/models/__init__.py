@@ -5,7 +5,6 @@ from .rule import Rule
 from .job import Job
 from .file import File
 from .error import Error
-from .enums import Status
 
 __all__ = [
     "Status",

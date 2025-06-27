@@ -1,5 +1,5 @@
-import logging
 from contextlib import contextmanager
+import os
 from pathlib import Path
 from sqlalchemy.orm import Session
 from typing import Generator, Any
@@ -7,6 +7,10 @@ from logging import Handler, LogRecord
 from datetime import datetime
 import sys
 import uuid
+import logging
+from .config import settings
+from sqlalchemy import text
+
 
 from snakemake_interface_logger_plugins.common import LogEvent
 from snakemake_interface_logger_plugins.settings import OutputSettingsLoggerInterface
@@ -26,6 +30,7 @@ from .event_handlers import (
     RunInfoHandler,
 )
 from .session import get_db
+from .config import logger
 
 
 class PostgresqlLogHandler(Handler):
@@ -61,7 +66,7 @@ class PostgresqlLogHandler(Handler):
             LogEvent.RUN_INFO.value: RunInfoHandler(),
         }
 
-        self._workflow_config = self._get_workflow_config()
+        self._workflow_config = self._get_workflow_config() or {}
 
         self.context = {
             "current_workflow_id": None,
@@ -71,21 +76,75 @@ class PostgresqlLogHandler(Handler):
             **self._workflow_config,
         }
 
+    def db_connected(self) -> bool:
+
+        try:
+            session = next(get_db())
+            try:
+                session.execute(text("SELECT 1"))
+                return True
+            except Exception as e:
+                logger.warning(f"Failed to connection database: {e}")
+                return False
+
+        except Exception:
+            logger.warning(
+                "Failed to connect to the database. Please check the configuration in the .env file."
+            )
+            return False
+
+    def flowo_path_valid(self):
+        flowo_working_path = settings.FLOWO_WORKING_PATH
+        workdir = self.context.get("workdir")
+
+        if not flowo_working_path:
+            logger.warning(
+                "The flowo_working_path is not configured in the .env file. Please configure it if you need to use Flowo to view logs, snakefiles, outputs, and other information in real-time."
+            )
+            return
+
+        if not workdir:
+            return
+
+        if not str(Path(workdir).resolve()).startswith(
+            str(Path(flowo_working_path).resolve())
+        ):
+            logger.warning(
+                f"workdir:{workdir} is not a valid subpath of flowo_working_path:{flowo_working_path}"
+            )
+            return
+
     def _get_workflow_config(self):
         data = {}
         for _, module in sys.modules.items():
             if hasattr(module, "__dict__"):
                 for attr_name, attr_value in module.__dict__.items():
                     if attr_name == "workflow" and hasattr(attr_value, "globals"):
+
                         data["config"] = attr_value.globals["config"]
+
+                        workdir = attr_value.__dict__.get("overwrite_workdir")
+                        if workdir is None or not workdir.startswith("/"):
+                            workdir = os.getcwd()
+
+                        data["workdir"] = str(workdir)
+
                         configfiles = attr_value.__dict__[
                             "config_settings"
                         ].__dict__.get("configfiles")
-                        workdir = attr_value.__dict__.get("overwrite_workdir")
+
                         if configfiles:
                             data["configfiles"] = [str(_) for _ in configfiles]
-                        if workdir:
-                            data["workdir"] = str(workdir)
+
+                        tags = data["config"].get("flowo_tags", None)
+                        tags = (
+                            [item.strip() for item in (tags or "").split(",")]
+                            if tags
+                            else []
+                        )
+
+                        data["flowo_tags"] = tags
+
                         return data
 
     @contextmanager
@@ -126,6 +185,7 @@ class PostgresqlLogHandler(Handler):
             handler = self.event_handlers.get(event_value)
             if not handler or self.context.get("dryrun"):
                 return
+
             with self.session_scope() as session:
                 handler.handle(record, session, self.context)
         except Exception:
