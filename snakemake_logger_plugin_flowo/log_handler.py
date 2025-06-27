@@ -1,3 +1,4 @@
+from asyncio.locks import Event
 from contextlib import contextmanager
 import os
 from pathlib import Path
@@ -179,16 +180,19 @@ class PostgresqlLogHandler(Handler):
         self.file_handler.emit(record)
         try:
             event = getattr(record, "event", None)
+
             if not event:
                 return
             event_value = event.value if hasattr(event, "value") else str(event).lower()
             handler = self.event_handlers.get(event_value)
             if not handler or self.context.get("dryrun"):
                 return
-
+            logger.info(event_value)
+            logger.info(record.__dict__)
             with self.session_scope() as session:
                 handler.handle(record, session, self.context)
-        except Exception:
+        except Exception as e:
+            logger.info(e)
             self.handleError(record)
 
     def close(self) -> None:
