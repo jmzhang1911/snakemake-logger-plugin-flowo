@@ -3,3 +3,4 @@
 *$py.class
 *.so
 .venv/
+dist/
