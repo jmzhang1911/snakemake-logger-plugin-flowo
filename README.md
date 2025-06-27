@@ -4,10 +4,10 @@ A Snakemake logger plugin that stores workflow execution data in PostgreSQL, mak
 
 ## 🎈 Features
 
-- Stores Snakemake workflow execution data in PostgreSQL database 🚀
-- Tracks jobs, rules, files, and errors 🔍
-- Provides comprehensive logging and monitoring capabilities 🚨
-- Easy integration with existing Snakemake workflows 🔄
+- Stores Snakemake workflow execution data in PostgreSQL database
+- Tracks jobs, rules, files, and errors
+- Provides comprehensive logging and monitoring capabilities
+- Easy integration with existing Snakemake workflows
 
 ## 💻 Installation
 
