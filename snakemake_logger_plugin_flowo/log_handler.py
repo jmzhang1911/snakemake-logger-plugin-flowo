@@ -1,4 +1,3 @@
-from asyncio.locks import Event
 from contextlib import contextmanager
 import os
 from pathlib import Path
@@ -11,11 +10,14 @@ import uuid
 import logging
 from .config import settings
 from sqlalchemy import text
+from sqlalchemy import select, exists
 
+from snakemake.logging import DefaultFormatter, DefaultFilter
 
 from snakemake_interface_logger_plugins.common import LogEvent
 from snakemake_interface_logger_plugins.settings import OutputSettingsLoggerInterface
 from .models.workflow import Workflow
+from .models.job import Job
 from .models.enums import Status
 from .event_handlers import (
     EventHandler,
@@ -76,6 +78,36 @@ class PostgresqlLogHandler(Handler):
             "logfile": str(Path(f"flowo_logs/log_{uuid.uuid4()}.log").resolve()),
             **self._workflow_config,
         }
+
+        self.file_handler = self.file_handler_init()
+
+    def file_handler_init(self):
+        self.log_file_path = Path(self.context.get("logfile"))
+
+        if not self.log_file_path.parent.exists():
+            self.log_file_path.parent.mkdir(parents=True, exist_ok=True)
+
+        file_handler = logging.FileHandler(self.log_file_path, encoding="utf-8")
+        file_handler.setFormatter(
+            DefaultFormatter(
+                self.common_settings.quiet, self.common_settings.show_failed_logs
+            )
+        )
+
+        file_handler.addFilter(
+            DefaultFilter(
+                self.common_settings.quiet,
+                self.common_settings.debug_dag,
+                self.common_settings.dryrun,
+                self.common_settings.printshellcmds,
+            )
+        )
+
+        file_handler.setLevel(
+            logging.DEBUG if self.common_settings.verbose else logging.INFO
+        )
+
+        return file_handler
 
     def db_connected(self) -> bool:
 
@@ -187,8 +219,6 @@ class PostgresqlLogHandler(Handler):
             handler = self.event_handlers.get(event_value)
             if not handler or self.context.get("dryrun"):
                 return
-            logger.info(event_value)
-            logger.info(record.__dict__)
             with self.session_scope() as session:
                 handler.handle(record, session, self.context)
         except Exception as e:
@@ -204,9 +234,21 @@ class PostgresqlLogHandler(Handler):
                     workflow = session.query(Workflow).get(
                         self.context["current_workflow_id"]
                     )
-                    if workflow and workflow.status != Status.ERROR:
-                        workflow.status = Status.SUCCESS
-                        workflow.end_time = datetime.now()
+                    if workflow:
+
+                        stmt = select(
+                            exists().where(
+                                Job.workflow_id == workflow.id,
+                                Job.status == Status.ERROR,
+                            )
+                        )
+                        has_error = session.scalar(stmt)
+                        if has_error:
+                            workflow.status = Status.ERROR
+                        else:
+                            workflow.status = Status.SUCCESS
+                            workflow.end_time = datetime.now()
+
             except Exception as e:
                 self.handleError(
                     logging.LogRecord(

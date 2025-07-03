@@ -81,9 +81,9 @@ class ErrorHandler(EventHandler):
 
         session.add(error)
 
-        workflow = session.query(Workflow).filter(Workflow.id == workflow_id).first()
-        if workflow and workflow.status == Status.RUNNING:
-            workflow.status = Status.ERROR
+        # workflow = session.query(Workflow).filter(Workflow.id == workflow_id).first()
+        # if workflow and workflow.status == Status.RUNNING:
+        #     workflow.status = Status.ERROR
 
 
 class WorkflowStartedHandler(EventHandler):
