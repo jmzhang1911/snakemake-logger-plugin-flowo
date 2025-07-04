@@ -31,13 +31,24 @@ The following environment variables are available for configuration in the `.env
 - `POSTGRES_DB`: PostgreSQL database name (default: flowo_logs)
 - `POSTGRES_HOST`: PostgreSQL host (default: localhost)
 - `POSTGRES_PORT`: PostgreSQL port (default: localhost: 5432)
-- `FLOWO_USER`: 
-- `FLOWO_WORKING_PATH`:
+- `FLOWO_USER`: User displayed in Flowo
+- `FLOWO_WORKING_PATH`: Snakemake execution project path
 
 ## 🚀 Usage
-
+Basic usage
 ```bash
-snakemake --logger flowo 
+snakemake --logger flowo
+```
+config `flowo_project_name` or `flowo_tags`
+```
+snakemake \
+    --config flowo_project_name=your_project_name flowo_tags="tagA,tagB,tagC"\
+    --logger flowo
+```
+or config in --configfile
+```
+flowo_project_name: your_project_name
+flowo_tags: "tagA,tagB,tagC"
 ```
 
 
