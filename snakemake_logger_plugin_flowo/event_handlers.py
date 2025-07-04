@@ -84,6 +84,7 @@ class ErrorHandler(EventHandler):
         workflow = session.query(Workflow).filter(Workflow.id == workflow_id).first()
         if workflow and workflow.status == Status.RUNNING:
             workflow.status = Status.ERROR
+            workflow.end_time = datetime.now()
 
 
 class WorkflowStartedHandler(EventHandler):
