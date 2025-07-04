@@ -42,7 +42,7 @@ snakemake --logger flowo
 config `flowo_project_name` or `flowo_tags`
 ```
 snakemake \
-    --config flowo_project_name=your_project_name flowo_tags="tagA,tagB,tagC"\
+    --config flowo_project_name=your_project_name flowo_tags="tagA,tagB,tagC" \
     --logger flowo
 ```
 or config in --configfile
