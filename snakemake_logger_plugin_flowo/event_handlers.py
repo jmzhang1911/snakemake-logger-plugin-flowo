@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from . import parsers
 from .models.enums import FileType, Status
 from .models import File, Job, Rule, Error, Workflow
-from .config import settings
+from .config import logger, settings
 
 """
 Context Dictionary Structure:
@@ -183,6 +183,10 @@ class JobInfoHandler(EventHandler):
         # session.add(job)
         # session.flush()
 
+        # benchmark = job_data.benchmark
+        # if not isinstance(benchmark, list):
+        #     benchmark = [benchmark]
+        # logger.info(benchmark)
         self._add_files(job, job_data.input, FileType.INPUT, session)
         self._add_files(job, job_data.output, FileType.OUTPUT, session)
         self._add_files(job, job_data.log, FileType.LOG, session)
