@@ -4,6 +4,7 @@ from logging import LogRecord
 from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field, field_validator
+from .config import logger
 
 
 class Error(BaseModel):
@@ -72,7 +73,9 @@ class JobInfo(BaseModel):
                 for name, value in zip(record.resources._names, record.resources)  # type: ignore
                 if name not in {"_cores", "_nodes"}
             }
-
+        benchmark = getattr(record, "benchmark", None)
+        if benchmark and not isinstance(benchmark, list):
+            benchmark = [benchmark]
         return cls(
             jobid=getattr(record, "jobid", 0),
             rule_name=getattr(record, "rule_name", ""),
@@ -85,7 +88,7 @@ class JobInfo(BaseModel):
             input=getattr(record, "input", None),
             log=getattr(record, "log", None),
             output=getattr(record, "output", None),
-            benchmark=getattr(record, "benchmark", None),
+            benchmark=benchmark,
             resources=resources,
         )
 

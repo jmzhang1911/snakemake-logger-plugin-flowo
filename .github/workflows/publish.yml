@@ -28,7 +28,7 @@ jobs:
 
     - name: Build the package with uv
       run: |
-        uv pip install -e .
+        uv sync
         uv build
 
     - name: Publish the package to PyPI

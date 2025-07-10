@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "snakemake-logger-plugin-flowo"
-version = "0.1.2"
+version = "0.1.5"
 description = "A Snakemake logger plugin that stores workflow execution data in PostgreSQL"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -26,6 +26,7 @@ dependencies = [
     "psycopg2-binary>=2.9.9",
     "pydantic>=2.11.5",
     "pydantic-settings>=2.9.1",
+    "pygments>=2.19.2",
     "snakemake>=9.6.2",
     "snakemake-interface-logger-plugins>=1.2.3",
     "sqlalchemy>=2.0.41",
