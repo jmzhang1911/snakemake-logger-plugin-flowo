@@ -24,7 +24,9 @@ class LogHandler(LogHandlerBase, PostgresqlLogHandler):
             self.emit = lambda _: None
             self.close = lambda: None
         else:
-            logger.info("Plugin is successfully initialized and running. Monitoring ...")
+            logger.info(
+                "Plugin is successfully initialized and running. Monitoring ..."
+            )
         self.flowo_path_valid()
 
         self.log_file_path = Path(self.context.get("logfile"))
