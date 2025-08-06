@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from . import parsers
 from .models.enums import FileType, Status
 from .models import File, Job, Rule, Error, Workflow
-from .config import settings
+from .config import logger, settings
 
 """
 Context Dictionary Structure:
@@ -84,6 +84,7 @@ class ErrorHandler(EventHandler):
         workflow = session.query(Workflow).filter(Workflow.id == workflow_id).first()
         if workflow and workflow.status == Status.RUNNING:
             workflow.status = Status.ERROR
+            workflow.end_time = datetime.now()
 
 
 class WorkflowStartedHandler(EventHandler):
@@ -182,6 +183,10 @@ class JobInfoHandler(EventHandler):
         # session.add(job)
         # session.flush()
 
+        # benchmark = job_data.benchmark
+        # if not isinstance(benchmark, list):
+        #     benchmark = [benchmark]
+        # logger.info(benchmark)
         self._add_files(job, job_data.input, FileType.INPUT, session)
         self._add_files(job, job_data.output, FileType.OUTPUT, session)
         self._add_files(job, job_data.log, FileType.LOG, session)
