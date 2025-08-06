@@ -39,8 +39,7 @@ The following environment variables are available for configuration in the `.env
 ```bash
 snakemake --logger flowo 
 ```
+## 🙏 Acknowledgement
 
-
-## 📜 License
-
-MIT License
+This project is developed based on the excellent work of [cademirch/snakemake-logger-plugin-snkmt](https://github.com/cademirch/snakemake-logger-plugin-snkmt).
+Special thanks to the original author for providing a solid foundation under the MIT License.
