@@ -1,6 +1,8 @@
 # Snakemake Logger Plugin - Flowo
 
-A Snakemake logger plugin that stores workflow execution data in PostgreSQL, making your workflow management more efficient and fun! 🎉
+A Snakemake logger plugin designed to be used with **[FlowO](https://github.com/zhanghaomiao/flowo)** for real-time task monitoring, making workflow management simple, interactive, and fun! 🎉
+
+**Demo page: [flowo online](https://zhanghaomiao.github.io/flowo)**
 
 ## 🎈 Features
 
@@ -51,7 +53,7 @@ flowo_project_name: your_project_name
 flowo_tags: "tagA,tagB,tagC"
 ```
 
+## 🙏 Acknowledgement
 
-## 📜 License
-
-MIT License
+This project is developed based on the excellent work of [cademirch/snakemake-logger-plugin-snkmt](https://github.com/cademirch/snakemake-logger-plugin-snkmt).
+Special thanks to the original author for providing a solid foundation under the MIT License.
