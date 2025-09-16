@@ -52,7 +52,6 @@ or config in --configfile
 flowo_project_name: your_project_name
 flowo_tags: "tagA,tagB,tagC"
 ```
-
 ## 🙏 Acknowledgement
 
 This project is developed based on the excellent work of [cademirch/snakemake-logger-plugin-snkmt](https://github.com/cademirch/snakemake-logger-plugin-snkmt).
