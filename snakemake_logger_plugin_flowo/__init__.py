@@ -7,7 +7,7 @@ A logger plugin for Snakemake that stores workflow execution data in PostgreSQL.
 from snakemake_interface_logger_plugins.base import LogHandlerBase
 from .log_handler import PostgresqlLogHandler
 
-__version__ = "0.1.0"
+__version__ = "0.1.8"
 
 from .config import logger
 
@@ -15,6 +15,9 @@ from .config import logger
 class LogHandler(LogHandlerBase, PostgresqlLogHandler):
     """Main LogHandler class for the PostgreSQL plugin."""
 
+    def emit(self, record):
+        return PostgresqlLogHandler.emit(self, record)
+    
     def __post_init__(self) -> None:
         PostgresqlLogHandler.__init__(self, self.common_settings)
         if not self.db_connected():
