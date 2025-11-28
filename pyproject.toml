@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "snakemake-logger-plugin-flowo"
-version = "0.1.2"
+version = "0.1.8"
 description = "A Snakemake logger plugin that stores workflow execution data in PostgreSQL"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -23,8 +23,6 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "numpy==1.26.4",
-    "pandas==1.3.5",
     "psycopg2-binary>=2.9.9",
     "pydantic>=2.11.5",
     "pydantic-settings>=2.9.1",
@@ -41,9 +39,9 @@ flowo = "snakemake_logger_plugin_flowo:LogHandler"
 flowo = "snakemake_logger_plugin_flowo.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/your-org/snakemake-logger-plugin-flowo"
-Repository = "https://github.com/your-org/snakemake-logger-plugin-flowo"
-Issues = "https://github.com/your-org/snakemake-logger-plugin-flowo/issues"
+Homepage = "https://github.com/jmzhang1911/snakemake-logger-plugin-flowo"
+Repository = "https://github.com/jmzhang1911/snakemake-logger-plugin-flowo"
+Issues = "https://github.com/jmzhang1911/snakemake-logger-plugin-flowo/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["snakemake_logger_plugin_flowo"]
@@ -52,6 +50,6 @@ packages = ["snakemake_logger_plugin_flowo"]
 url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 default = true
 
-[[tool.uv.index]]
-url = "https://pypi.org/simple/"
-name = "pypi"
+# [[tool.uv.index]]
+# url = "https://pypi.org/simple/"
+# name = "pypi"

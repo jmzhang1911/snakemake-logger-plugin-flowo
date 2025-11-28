@@ -6,9 +6,6 @@ A logger plugin for Snakemake that stores workflow execution data in PostgreSQL.
 
 from snakemake_interface_logger_plugins.base import LogHandlerBase
 from .log_handler import PostgresqlLogHandler
-from pathlib import Path
-import logging
-from snakemake.logging import DefaultFormatter, DefaultFilter
 
 __version__ = "0.1.0"
 
@@ -28,28 +25,6 @@ class LogHandler(LogHandlerBase, PostgresqlLogHandler):
                 "Plugin is successfully initialized and running. Monitoring ..."
             )
         self.flowo_path_valid()
-
-        self.log_file_path = Path(self.context.get("logfile"))
-        if not self.log_file_path.parent.exists():
-            self.log_file_path.parent.mkdir(parents=True, exist_ok=True)
-        self.file_handler = logging.FileHandler(self.log_file_path, encoding="utf-8")
-        self.file_handler.setFormatter(
-            DefaultFormatter(
-                self.common_settings.quiet, self.common_settings.show_failed_logs
-            )
-        )
-        self.file_handler.addFilter(
-            DefaultFilter(
-                self.common_settings.quiet,
-                self.common_settings.debug_dag,
-                self.common_settings.dryrun,
-                self.common_settings.printshellcmds,
-            )
-        )
-        self.file_handler.setLevel(
-            logging.DEBUG if self.common_settings.verbose else logging.INFO
-        )
-        self.baseFilename = str(self.log_file_path)
 
     @property
     def writes_to_stream(self) -> bool:
