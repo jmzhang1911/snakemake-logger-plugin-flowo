@@ -50,6 +50,6 @@ packages = ["snakemake_logger_plugin_flowo"]
 url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 default = true
 
-[[tool.uv.index]]
-url = "https://pypi.org/simple/"
-name = "pypi"
+# [[tool.uv.index]]
+# url = "https://pypi.org/simple/"
+# name = "pypi"
