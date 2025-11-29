@@ -92,7 +92,7 @@ class WorkflowStartedHandler(EventHandler):
         self, record: LogRecord, session: Session, context: Dict[str, Any]
     ) -> None:
         workflow_data = parsers.WorkflowStarted.from_record(record)
-
+        logger.info(f"Starting workflow with ID: {workflow_data.workflow_id}")
         workflow = Workflow(
             id=workflow_data.workflow_id,
             snakefile=workflow_data.snakefile,

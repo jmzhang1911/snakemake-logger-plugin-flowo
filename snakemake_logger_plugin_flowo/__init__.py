@@ -51,5 +51,8 @@ class LogHandler(LogHandlerBase, PostgresqlLogHandler):
         """Whether this plugin requires the DAG rulegraph."""
         return True
 
+    def emit(self, record):
+        return PostgresqlLogHandler.emit(self, record)
+
 
 __all__ = ["LogHandler"]

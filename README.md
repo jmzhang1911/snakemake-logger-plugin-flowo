@@ -4,6 +4,8 @@ A Snakemake logger plugin designed to be used with **[FlowO](https://github.com/
 
 **Demo page: [flowo online](https://zhanghaomiao.github.io/flowo)**
 
+**Important:** This plugin is designed to be used together with FlowO and requires FlowO to function correctly. It is not a standalone monitoring tool.
+
 ## 🎈 Features
 
 - Stores Snakemake workflow execution data in PostgreSQL database
@@ -32,9 +34,12 @@ The following environment variables are available for configuration in the `.env
 - `POSTGRES_PASSWORD`: PostgreSQL password (default: flowo_password)
 - `POSTGRES_DB`: PostgreSQL database name (default: flowo_logs)
 - `POSTGRES_HOST`: PostgreSQL host (default: localhost)
-- `POSTGRES_PORT`: PostgreSQL port (default: localhost: 5432)
+- `POSTGRES_PORT`: PostgreSQL port (default: 5432)
 - `FLOWO_USER`: User displayed in Flowo
 - `FLOWO_WORKING_PATH`: Snakemake execution project path
+
+**Note:** The PostgreSQL database used by this plugin is configured in FlowO. Ensure FlowO is properly set up before using this logger plugin.
+```
 
 ## 🚀 Usage
 Basic usage
