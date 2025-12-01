@@ -150,10 +150,16 @@ class PostgresqlLogHandler(Handler):
     def _get_workflow_config(self):
         data = {}
         for _, module in sys.modules.items():
+
             if hasattr(module, "__dict__"):
                 for attr_name, attr_value in module.__dict__.items():
-                    if attr_name == "workflow" and hasattr(attr_value, "globals"):
+                    if attr_name == "workflow" and hasattr(
+                        attr_value, "ConfigSettings"
+                    ):
+                        tmp = attr_value.__dict__["ConfigSettings"].__dict__
+                        logger.info(tmp)
 
+                    if attr_name == "workflow" and hasattr(attr_value, "globals"):
                         data["config"] = attr_value.globals["config"]
 
                         workdir = attr_value.__dict__.get("overwrite_workdir")
