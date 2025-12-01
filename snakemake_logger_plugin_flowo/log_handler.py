@@ -2,10 +2,9 @@ from contextlib import contextmanager
 import os
 from pathlib import Path
 from sqlalchemy.orm import Session
-from typing import Generator, Any
+from typing import Generator, Any, Optional
 from logging import Handler, LogRecord
 from datetime import datetime
-import sys
 import uuid
 import logging
 from .config import settings
@@ -13,7 +12,6 @@ from sqlalchemy import text
 from sqlalchemy import select, exists
 
 from snakemake.logging import DefaultFormatter, DefaultFilter
-
 from snakemake_interface_logger_plugins.common import LogEvent
 from snakemake_interface_logger_plugins.settings import OutputSettingsLoggerInterface
 from .models.workflow import Workflow
@@ -46,6 +44,8 @@ class PostgresqlLogHandler(Handler):
     def __init__(
         self,
         common_settings: OutputSettingsLoggerInterface,
+        flowo_project_name: Optional[str] = None,
+        flowo_tags: Optional[str] = None
     ):
         """Initialize the PostgreSQL log handler.
 
@@ -55,7 +55,6 @@ class PostgresqlLogHandler(Handler):
         super().__init__()
 
         self.common_settings = common_settings
-
         self.event_handlers: dict[str, EventHandler] = {  # type: ignore
             LogEvent.WORKFLOW_STARTED.value: WorkflowStartedHandler(),
             LogEvent.JOB_INFO.value: JobInfoHandler(),
@@ -69,20 +68,26 @@ class PostgresqlLogHandler(Handler):
             LogEvent.RUN_INFO.value: RunInfoHandler(),
         }
 
-        self._workflow_config = self._get_workflow_config() or {}
-
+        tags = (
+            [item.strip() for item in (flowo_tags or "").split(",")]
+            if flowo_tags
+            else []
+        )
         self.context = {
             "current_workflow_id": None,
             "dryrun": self.common_settings.dryrun,
             "jobs": {},
             "logfile": str(Path(f"flowo_logs/log_{uuid.uuid4()}.log").resolve()),
-            **self._workflow_config,
+            "flowo_project_name": flowo_project_name,
+            "flowo_tags": tags,
+            "workdir": os.getcwd(),
         }
 
         self.file_handler = self.file_handler_init()
 
+
     def file_handler_init(self):
-        self.log_file_path = Path(self.context.get("logfile"))
+        self.log_file_path = Path(self.context.get("logfile", ""))
 
         if not self.log_file_path.parent.exists():
             self.log_file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -106,7 +111,6 @@ class PostgresqlLogHandler(Handler):
         file_handler.setLevel(
             logging.DEBUG if self.common_settings.verbose else logging.INFO
         )
-
         return file_handler
 
     def db_connected(self) -> bool:
@@ -147,44 +151,6 @@ class PostgresqlLogHandler(Handler):
             )
             return
 
-    def _get_workflow_config(self):
-        data = {}
-        for _, module in sys.modules.items():
-
-            if hasattr(module, "__dict__"):
-                for attr_name, attr_value in module.__dict__.items():
-                    if attr_name == "workflow" and hasattr(
-                        attr_value, "ConfigSettings"
-                    ):
-                        tmp = attr_value.__dict__["ConfigSettings"].__dict__
-                        logger.info(tmp)
-
-                    if attr_name == "workflow" and hasattr(attr_value, "globals"):
-                        data["config"] = attr_value.globals["config"]
-
-                        workdir = attr_value.__dict__.get("overwrite_workdir")
-                        if workdir is None or not workdir.startswith("/"):
-                            workdir = os.getcwd()
-
-                        data["workdir"] = str(workdir)
-
-                        configfiles = attr_value.__dict__[
-                            "config_settings"
-                        ].__dict__.get("configfiles")
-
-                        if configfiles:
-                            data["configfiles"] = [str(_) for _ in configfiles]
-
-                        tags = data["config"].get("flowo_tags", None)
-                        tags = (
-                            [item.strip() for item in (tags or "").split(",")]
-                            if tags
-                            else []
-                        )
-
-                        data["flowo_tags"] = tags
-
-                        return data
 
     @contextmanager
     def session_scope(self) -> Generator[Session, Any, Any]:
