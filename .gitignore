@@ -4,3 +4,4 @@
 *.so
 .venv/
 dist/
+*.pyc
