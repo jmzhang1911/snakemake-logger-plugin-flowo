@@ -70,7 +70,7 @@ class PostgresqlLogHandler(Handler):
         }
 
         self._workflow_config = self._get_workflow_config() or {}
-
+        logger.info("Workflow config loaded: %s", self._workflow_config)
         self.context = {
             "current_workflow_id": None,
             "dryrun": self.common_settings.dryrun,
