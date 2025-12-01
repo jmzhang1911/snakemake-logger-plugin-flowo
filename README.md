@@ -18,6 +18,7 @@ A Snakemake logger plugin designed to be used with **[FlowO](https://github.com/
 ```bash
 pip install snakemake-logger-plugin-flowo
 ```
+
 ## 🔧 Configuration
 
 ```bash
@@ -28,6 +29,7 @@ flowo --generate-config
 # After generating the .env file, open it with your preferred text editor to adjust the settings:
 vim $HOME/.config/flowo/.env
 ```
+
 The following environment variables are available for configuration in the `.env` file:
 
 - `POSTGRES_USER`: PostgreSQL username (default: flowo)
@@ -39,24 +41,24 @@ The following environment variables are available for configuration in the `.env
 - `FLOWO_WORKING_PATH`: Snakemake execution project path
 
 **Note:** The PostgreSQL database used by this plugin is configured in FlowO. Ensure FlowO is properly set up before using this logger plugin.
-```
+
+````
 
 ## 🚀 Usage
 Basic usage
 ```bash
 snakemake --logger flowo
-```
-config `flowo_project_name` or `flowo_tags`
+````
+
+Optional args: `logger-flowo-name` or `logger-flowo-tags`
+
 ```
 snakemake \
-    --config flowo_project_name=your_project_name flowo_tags="tagA,tagB,tagC" \
-    --logger flowo
+    --logger flowo \
+    --logger-flowo-name=your_project_name \
+    --logger-flowo-tags="tagA,tagB,tagC"
 ```
-or config in --configfile
-```
-flowo_project_name: your_project_name
-flowo_tags: "tagA,tagB,tagC"
-```
+
 ## 🙏 Acknowledgement
 
 This project is developed based on the excellent work of [cademirch/snakemake-logger-plugin-snkmt](https://github.com/cademirch/snakemake-logger-plugin-snkmt).

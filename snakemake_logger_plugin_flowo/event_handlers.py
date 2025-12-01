@@ -98,7 +98,7 @@ class WorkflowStartedHandler(EventHandler):
             snakefile=workflow_data.snakefile,
             user=settings.FLOWO_USER,
             flowo_working_path=settings.FLOWO_WORKING_PATH,
-            name=context.get("config", {}).get("flowo_project_name"),
+            name=context.get("flowo_project_name"),
             tags=context.get("flowo_tags"),
             logfile=context.get("logfile"),
             configfiles=context.get("configfiles"),
