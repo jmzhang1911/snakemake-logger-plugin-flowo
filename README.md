@@ -1,3 +1,6 @@
+![Stars](https://static.pepy.tech/personalized-badge/snakemake-logger-plugin-flowo?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads)
+![Stars](https://img.shields.io/pypi/v/snakemake-logger-plugin-flowo.svg)
+
 # Snakemake Logger Plugin - Flowo
 
 A Snakemake logger plugin designed to be used with **[FlowO](https://github.com/zhanghaomiao/flowo)** for real-time task monitoring, making workflow management simple, interactive, and fun! 🎉
