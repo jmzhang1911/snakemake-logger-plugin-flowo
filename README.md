@@ -45,13 +45,14 @@ The following environment variables are available for configuration in the `.env
 
 **Note:** The PostgreSQL database used by this plugin is configured in FlowO. Ensure FlowO is properly set up before using this logger plugin.
 
-````
+
 
 ## 🚀 Usage
 Basic usage
+
 ```bash
 snakemake --logger flowo
-````
+```
 
 Optional args: `logger-flowo-name` or `logger-flowo-tags`
 
